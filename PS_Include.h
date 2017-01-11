@@ -1,0 +1,6 @@
+#ifndef PS_INCLUDE_H_INCLUDED
+#define PS_INCLUDE_H_INCLUDED
+
+typedef enum {VAGUE_ABC , VAGUE_AB_CD} TypeVague;
+
+#endif // PS_INCLUDE_H_INCLUDED
