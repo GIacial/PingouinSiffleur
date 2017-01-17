@@ -6,7 +6,9 @@
 
 int main()
 {
-    chrono(getTemps(),VAGUE_ABC);
+    int tps =getTemps();
+    chrono(tps);
+
 
     return 0;
 }

@@ -3,6 +3,6 @@
 
 #include "PS_Include.h"
 
-void chrono (int temps, TypeVague vague);
+void chrono (int temps);
 
 #endif // PS_COEUR_H_INCLUDED
