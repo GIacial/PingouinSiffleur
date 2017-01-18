@@ -19,7 +19,7 @@ void chrono (int temps){
         //afficheTemps(temps);
         temps--;
 
-        tempsAttente = 990-((tempsRetard+((double)(clock() - debut)/CLOCKS_PER_SEC))*1000);  //1sec - le temps passer a exec du code - le retard
+        tempsAttente = 1000-((tempsRetard+((double)(clock() - debut)/CLOCKS_PER_SEC))*1000);  //1sec - le temps passer a exec du code - le retard
 
         retard = clock();
 
