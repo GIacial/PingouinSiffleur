@@ -46,7 +46,7 @@ void chrono (int temps) {
 }
 
 void chronoTir(TYPE_TIR tir ,TYPE_VAGUE vague){
-  for(int i = 0 ; i<2 ; i++){
+  for(int i = 0 ; i<(int)vague ; i++){
     switch(vague){
       case VAGUE_AB_CD :  if(i%2 ==0){
                               Serial.print("AB\n");
