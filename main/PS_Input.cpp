@@ -57,11 +57,11 @@ TYPE_BUTTON getButton(){
 	int numButton = Serial.parseInt();
 	TYPE_BUTTON button ;
 	switch(numButton){
-		case 1 : button = BUTTON_START;
+		case 1 : button = BUTTON_TIR;
 		break;
 		case 2 : button = BUTTON_STOP;
 		break;
-		case 3 : button = BUTTON_NEXT;
+		case 3 : button = BUTTON_SCORE;
 		break;
 		default : button = BUTTON_NONE;
 		break;

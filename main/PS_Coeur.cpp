@@ -1,29 +1,32 @@
 #include <Arduino.h>
 #include "PS_Coeur.h"
 #include "PS_Input.h"
+#include "PS_Output.h"
 
 
-void chrono (int temps) {
+void chrono (int temps ,bool preTir) {
 
   unsigned long debut, debutCpt, finCpt;
   int tempsAttente;
   bool actif = true;
-
+  choixCouleur(preTir);
+  
   debutCpt = millis();
   while (temps > 0) {
     debut = millis();     //on chronometre le temps qu'on va metre
-    Serial.println(temps);
+    choixCouleur(temps,preTir);
+    afficheTemps(temps);
     TYPE_BUTTON button = getButton();
     switch(button){
       case BUTTON_STOP : actif =false;
       Serial.println("STOP");
       break;
-      case BUTTON_START : actif =true;
+      case BUTTON_TIR : actif =true;
                           temps--;
-                          Serial.println("START");
+                          Serial.println("TIR");
       break;
-      case BUTTON_NEXT :temps =0;
-      Serial.println("NEXT");
+      case BUTTON_SCORE :temps =0;
+      Serial.println("SCORE");
       break;
       default: if(actif){
                 temps--;
@@ -38,7 +41,6 @@ void chrono (int temps) {
   }
 
   finCpt = millis();  //recup le temps qu'on a mis a finir
-  // afficheTemps(0);    //affiche un 0 pour la forme
   Serial.print("Temps d'execution : ");    //verif qu'on a bien mis temps seconde
   Serial.print((double)(finCpt - debutCpt) / 1000);
   Serial.println(" seconde");
@@ -48,7 +50,8 @@ void chrono (int temps) {
 void chronoTir(TYPE_TIR tir ,TYPE_VAGUE vague){
   for(int i = 0 ; i<(int)vague ; i++){
     switch(vague){
-      case VAGUE_AB_CD :  if(i%2 ==0){
+      case VAGUE_AB_CD : 
+                          if(i%2 == (i>1)){ //verif si on a déjà fait une vague AB_CD pour mettre  CD_AB
                               Serial.print("AB\n");
                           }
                           else{
@@ -60,8 +63,40 @@ void chronoTir(TYPE_TIR tir ,TYPE_VAGUE vague){
       default:Serial.print("Vague inconnu");
       break;
     }
+    chrono((int)PRE_TIR , true);
     chrono ((int)tir);
+    if(i == 1){ //pause va chercher les fleches pour AB_CD
+      pauseScore();
+    }
+    
+  }
+  pauseScore();
+}
+
+void choixCouleur(int temps , bool preTir){
+  if(!preTir){
+    if(temps == 30){
+      afficheCouleur(ORANGE);
+    }
   }
 }
+
+
+void choixCouleur(bool preTir){
+  if(preTir){
+    afficheCouleur(ROUGE);    
+  }
+  else{
+    afficheCouleur(VERT);
+  }
+}
+
+void pauseScore(){
+  Serial.println("Va chercher les fleches");
+   while( getButton()!= BUTTON_TIR){
+    delay(1000);
+   }
+}
+
 
 
