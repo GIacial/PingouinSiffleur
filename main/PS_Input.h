@@ -6,5 +6,7 @@
 	TYPE_TIR getTypeTir();
 	TYPE_VAGUE getTypeVague();
 	TYPE_BUTTON getButton();
+  void receiveEvent(int howMany);
+  void inputSetUp();
 	
 #endif
